@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.health.dao.PermissionDao">
+<select id="findByCondiction" resultType="com.itheima.health.pojo.Permission">
+    select * from t_permission
+    <if
+    test="value!=null and value.length>0">
+         where  keyword=#{value} or name like concat('%',#{value},'%')
+    </if>
+</select>
+
+<update id="edit" parameterType="com.itheima.health.pojo.Permission">
+    UPDATE    t_permission
+    <set>
+        <if test="name!=null and name.length>0">
+            name=#{name},
+        </if>
+        <if test="keyword!=null and keyword.length>0">
+         keyword=#{keyword},
+        </if>
+        <if test="description!=null and description.length>0">
+            description=#{description},
+        </if>
+    </set>
+    WHERE  id=#{id}
+</update>
+
+</mapper>

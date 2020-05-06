@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.health.dao.OrderDao">
+
+
+
+
+    <select id="findByCondiction" parameterType="com.itheima.health.pojo.Order" resultType="com.itheima.health.pojo.Order">
+      SELECT  * from t_order
+      <where>
+          <if test="id!=null ">
+              and id=#{id}
+          </if>
+          <if test="memberId!=null ">
+              and member_id=#{memberId}
+          </if>
+          <if test="orderDate!=null ">
+              and orderDate=#{orderDate}
+          </if>
+          <if test="orderType!=null ">
+              and orderType=#{orderType}
+          </if>
+          <if test="orderStatus!=null">
+              and orderStatus=#{orderStatus}
+          </if>
+          <if test="setmealId!=null">
+              and setmeal_id=#{setmealId}
+          </if>
+
+      </where>
+
+    </select>
+
+
+    <select id="findById" parameterType="int" resultType="map">
+      SELECT m.name AS member,o.orderDate , o.orderType,o.orderStatus,s.name AS stealname
+      FROM t_setmeal AS s,t_member AS m,t_order AS o
+      WHERE m.id=o.member_id AND o.setmeal_id=s.id AND o.id=#{id};
+
+    </select>
+
+
+
+
+
+</mapper>

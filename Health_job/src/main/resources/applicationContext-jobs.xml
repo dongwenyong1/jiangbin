@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                  http://www.springframework.org/schema/beans/spring-beans.xsd
+                  http://code.alibabatech.com/schema/dubbo
+                  http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+                  http://www.springframework.org/schema/context
+                  http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.itheima"></context:component-scan>
+    <!--开启注解配置支持，否则在ClearImgJob不能使用@Autowired-->
+    <context:annotation-config></context:annotation-config>
+    <!-- 注册自定义Job -->
+    <bean id="ClearImgJob" class="com.itheima.health.job.ClearImgJob"></bean>
+    <!-- 注册JobDetail,作用是负责通过反射调用指定的Job -->
+    <bean id="jobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 注入目标对象 -->
+        <property name="targetObject" ref="ClearImgJob"/>
+        <!-- 注入目标方法 -->
+        <property name="targetMethod" value="clearImg"/>
+    </bean>
+    <!-- 注册一个触发器，指定任务触发的时间 -->
+    <bean id="myTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!-- 注入JobDetail -->
+        <property name="jobDetail" ref="jobDetail"/>
+        <!-- 指定触发的时间，基于Cron表达式（0 0 2 * * ?表示凌晨2点执行） -->
+        <property name="cronExpression">
+            <!--<value>0 0 2 * * ?</value>-->
+            <value> 0/10 * * * * ?</value>
+        </property>
+    </bean>
+
+  <bean class="com.itheima.health.job.RemoveOderSetting" id="removeOderSetting"></bean>
+   <bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+     <property name="targetObject" ref="removeOderSetting"></property>
+     <property name="targetMethod" value="removeOrderSetting"></property>
+ </bean>
+<bean id="myTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="jobDetail" ref="jobDetail2"/>
+    <property name="cronExpression">
+        <!-- 每月1号凌晨1点执行一次：0 0 1 1 * ?   每月最后一天23点执行一次：0 0 23 L * ?-->
+       <!-- <value> 0 0 2 L * ? </value>-->
+        <value> 0/10 * * * * ?</value>
+        <!--每月的最后一天的凌晨2点-->
+    </property>
+
+</bean>
+
+    <!-- 注册一个统一的调度工厂，通过这个调度工厂调度任务 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 注入多个触发器 -->
+        <property name="triggers">
+            <list>
+                <ref bean="myTrigger"/>
+                <ref bean="myTrigger1"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--Jedis连接池的相关配置-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal">
+            <value>200</value>
+        </property>
+        <property name="maxIdle">
+            <value>50</value>
+        </property>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+    </bean>
+
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="host" value="127.0.0.1" />
+        <constructor-arg name="port" value="6379" type="int" />
+        <constructor-arg name="timeout" value="30000" type="int" />
+    </bean>
+    <!--批量扫描-->
+    <dubbo:annotation package="com.itheima" />
+
+    <!-- 指定应用名称 -->
+    <dubbo:application name="health_web" />
+    <!--指定服务注册中心地址-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <!--批量扫描-->
+    <dubbo:annotation package="com.itheima.health.controller" />
+    <!--
+        超时全局设置 10分钟
+        check=false 不检查服务提供方，开发阶段建议设置为false
+        check=true 启动时检查服务提供方，如果服务提供方没有启动则报错
+    -->
+    <dubbo:consumer timeout="600000" check="false"/>
+
+
+
+
+
+
+
+    <!--<bean id="orderSettingService" class="com.itheima.health.service.OrderSettingServiceImpl"></bean>-->
+</beans>

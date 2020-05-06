@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UIelement入门</title>
+
+    <!-- 引入ElementUI样式 -->
+    <!-- 引入ElementUI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入ElementUI组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="table">
+    <el-table
+            :data="tableData"
+            style="width: 100%"
+            :row-class-name="tableRowClassName">
+        <el-table-column
+                prop="date"
+                label="日期"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="name"
+                label="姓名"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="address"
+                label="地址">
+        </el-table-column>
+        <el-table-column
+                prop="operate"
+                label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <el-table
+            :data="tableData1"
+            style="width: 100%"
+            :row-class-name="tableRowClassName">
+        <el-table-column
+                prop="date"
+                label="日期"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="name"
+                label="姓名"
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="address"
+                label="地址">
+        </el-table-column>
+        <el-table-column
+                prop="operate"
+                label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+
+
+
+
+    </el-table>
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage4"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400">
+    </el-pagination>
+
+</div>
+
+<script>
+    new Vue({
+        el:"#table",
+        methods:{
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            }
+            ,
+
+                handleEdit(index, row) {
+                    alert(index);
+                },
+                handleDelete(index, row) {
+                    alert(index);
+                },
+              handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            }
+
+
+        },
+        data:{
+            currentPage4: 4 ,
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }],
+                tableData1: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }]
+            }
+
+    })
+</script>
+
+<style>
+    .el-table .warning-row {
+        background: oldlace;
+        align-content: center;
+
+    }
+
+    .el-table .success-row {
+        background: #f0f9eb;
+        align-content: center;
+
+    }
+    #table{
+        align-content: center;
+        text-align: center;
+    }
+</style>

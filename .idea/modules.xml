@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/HealthMobile_web/HealthMobile_web.iml" filepath="$PROJECT_DIR$/HealthMobile_web/HealthMobile_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_Dao/Health_Dao.iml" filepath="$PROJECT_DIR$/Health_Dao/Health_Dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_common/Health_common.iml" filepath="$PROJECT_DIR$/Health_common/Health_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_interface/Health_interface.iml" filepath="$PROJECT_DIR$/Health_interface/Health_interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_job/Health_job.iml" filepath="$PROJECT_DIR$/Health_job/Health_job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_parent.iml" filepath="$PROJECT_DIR$/Health_parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_pojo/Health_pojo.iml" filepath="$PROJECT_DIR$/Health_pojo/Health_pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_service/Health_service.iml" filepath="$PROJECT_DIR$/Health_service/Health_service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health_web/Health_web.iml" filepath="$PROJECT_DIR$/Health_web/Health_web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Quartz/Quartz.iml" filepath="$PROJECT_DIR$/../../Quartz/Quartz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../SpringSecurity/SpringSecurity.iml" filepath="$PROJECT_DIR$/../../SpringSecurity/SpringSecurity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../reviewforjob/reviewforjob.iml" filepath="$PROJECT_DIR$/../../reviewforjob/reviewforjob.iml" />
+    </modules>
+  </component>
+</project>

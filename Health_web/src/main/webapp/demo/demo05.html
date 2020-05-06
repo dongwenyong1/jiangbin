@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UIelement入门</title>
+
+    <!-- 引入ElementUI样式 -->
+    <!-- 引入ElementUI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入ElementUI组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<body>
+<div id="pagination">
+    <span class="demonstration">完整功能</span>
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage4"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400">
+    </el-pagination>
+
+</div>
+
+
+<script>
+    new Vue({
+        el:"#pagination",
+        methods: {
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            }
+        },
+        data:{
+            currentPage4: 4
+        }
+
+
+    })
+
+
+</script>

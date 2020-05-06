@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Health_job:war">
+    <output-path>$PROJECT_DIR$/Health_job/target</output-path>
+    <root id="archive" name="Health_job-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Health_job:war exploded" />
+    </root>
+  </artifact>
+</component>

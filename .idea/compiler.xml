@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Health_common" />
+        <module name="Health_Dao" />
+        <module name="Health_interface" />
+        <module name="Health_job" />
+        <module name="Health_pojo" />
+        <module name="Health_service" />
+        <module name="Health_web" />
+        <module name="HealthMobile_web" />
+        <module name="Quartz" />
+        <module name="reviewforjob" />
+        <module name="SpringSecurity" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Health_common" target="1.8" />
+      <module name="Health_Dao" target="1.8" />
+      <module name="Health_interface" target="1.8" />
+      <module name="Health_job" target="1.8" />
+      <module name="Health_parent" target="1.8" />
+      <module name="Health_pojo" target="1.8" />
+      <module name="Health_service" target="1.8" />
+      <module name="Health_web" target="1.8" />
+      <module name="HealthMobile_web" target="1.8" />
+      <module name="Healthweb" target="1.8" />
+      <module name="QiNiu" target="1.5" />
+      <module name="Quartz" target="1.7" />
+      <module name="reviewforjob" target="1.8" />
+      <module name="SpringSecurity" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

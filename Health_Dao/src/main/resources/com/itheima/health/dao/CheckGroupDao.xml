@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itheima.health.dao.CheckGroupDao" >
+    <select id="selectByCondition" resultType="com.itheima.health.pojo.CheckGroup" parameterType="string">
+        SELECT  * FROM t_checkgroup
+        <if test="value!=null and value.length>0">
+            /*条件是否为空采用if标签*/
+            WHERE  code=#{value} OR name=#{value}
+        </if>
+
+    </select>
+
+    <update id="edit" parameterType="com.itheima.health.pojo.CheckGroup">
+        UPDATE t_checkgroup
+        <selectKey keyProperty="id" order="AFTER" resultType="int" keyColumn="id"></selectKey>
+
+        <set>
+
+          <if test="code != null and code.length>0">  code=#{code},</if>
+          <if test="name != null and name.length>0">  name=#{name},</if>
+          <if test="helpCode != null and helpCode.length>0">   helpCode=#{helpCode},</if>
+          <if test="sex != null and sex.length>0"> sex=#{sex},</if>
+          <if test=" remark != null and  remark.length>0">  remark=#{remark},</if>
+          <if test="attention != null and attention.length>0"> attention=#{attention},</if>
+        </set>
+        <where>id=#{id}</where>
+    </update>
+
+    <resultMap id="CheckGroupMap" type="com.itheima.health.pojo.CheckGroup">
+       <id property="id" column="id"></id>
+      <result property="code" column="code"></result>
+      <result property="name" column="name"></result>
+      <result property="helpCode" column="helpCode"></result>
+      <result property="sex" column="sex"></result>
+      <result property="remark" column="remark"></result>
+      <result property="attention" column="attention"></result>
+       <collection property="checkItems" column="id" select="com.itheima.health.dao.CheckItemDao.findCheckItemListById"></collection>
+    </resultMap>
+
+<sql id="sa">
+    SELECT  * from
+</sql>
+
+
+    <select id="findCheckGroupListById" resultMap="CheckGroupMap" parameterType="int">
+
+    <include refid="sa"></include>
+        SELECT * from  t_checkgroup where id in (select checkgroup_id from t_setmeal_checkgroup where setmeal_id=#{id})
+
+
+    </select>
+
+
+</mapper>
